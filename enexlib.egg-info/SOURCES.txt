@@ -1,0 +1,8 @@
+README.md
+setup.py
+enexlib/__init__.py
+enexlib/enexlib.py
+enexlib.egg-info/PKG-INFO
+enexlib.egg-info/SOURCES.txt
+enexlib.egg-info/dependency_links.txt
+enexlib.egg-info/top_level.txt
