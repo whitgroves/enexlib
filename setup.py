@@ -5,7 +5,7 @@ with open('README.md', 'r') as header:
 	
 setuptools.setup(
 	name='enexlib',
-	version='0.0.2',
+	version='0.0.3',
 	author='whitgroves',
 	author_email='whitney.groves@gmail.com',
 	description='Extract Evernote backup files (.enex) to plain text.',
