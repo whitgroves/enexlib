@@ -9,3 +9,8 @@ into basic text. This has several optional parameters:
 	Overrides text_only.
  - join_all: False by default. Combines all content into a single large note.
 	Originally intended for frequency analysis over a large set of notes.
+
+## Changelog
+### Version 0.0.4
+* Repo cleanup.
+* Refactored `read_enex` to support `.xml` files.

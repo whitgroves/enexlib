@@ -1,7 +1,13 @@
 # hidden folders
 .*/
 
-# build files
-build/*
+# build artifacts
 dist/*
-enexlib.egg-info/*
+*/*.egg-info/*
+
+# hidden filetypes
+*.enex
+*.new
+*.old
+*.xml
+*.pyc
