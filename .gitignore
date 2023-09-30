@@ -1,0 +1,7 @@
+# hidden folders
+.*/
+
+# build files
+build/*
+dist/*
+enexlib.egg-info/*
