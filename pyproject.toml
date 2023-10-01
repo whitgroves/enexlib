@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enexlib"
+version = "0.1.0"
+description = "Extract Evernote backup files (.enex) to plain text."
+keywords = ["evernote", "enex"]
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.12.2",
+    "lxml>=4.9.3",
+    "soupsieve>=2.5",
+]
+readme = "README.md"
+
+[project.urls]
+"Source" = "https://github.com/whitgroves/enexlib"

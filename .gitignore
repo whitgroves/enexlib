@@ -1,0 +1,13 @@
+# hidden folders
+.*/
+__*__/
+
+# build artifacts
+dist/*
+*.egg-info/*
+
+# hidden filetypes
+*.enex
+*.xml
+*.new
+*.old
