@@ -7,15 +7,14 @@ A python3 module for converting Evernote backup files (.enex) to plaintext.
 pip install enexlib
 ```
 ```
-from enexlib import read_enex
+import enexlib as nx
 
-read_enex('<filename>.enex') # returns (<note title>, <note content>)
+for title, note in nx.read_enex('<filename>.enex'):
+	# do something
+
+plain_text = nx.read_enex('<filename>.enex', text_only=True)
+
+raw_content = nx.read_enex('<filename>.enex', raw_text=True)
+
+all_combined = nx.read_enex('<filename>.enex', join_all=True)
 ```
-`read_enex` has 3 optional flags (all `false` by default) that modify its behavior:
-
- - `text_only` — Attempts to remove all special characters.
-
- - `raw_text` — Returns the raw content of the .enex file instead of parsing it.
-	Overrides `text_only`.
-
- - `join_all` — Combines all content into a single large note. 

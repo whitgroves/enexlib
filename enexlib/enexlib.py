@@ -22,8 +22,9 @@ def read_enex(filename:str, text_only:bool=False, raw_text:bool=False, join_all:
 
 	notes = [] 
 	for title, content in zip(titles, contents):
+		_title = compile(r'<.*?title>').sub('', str(title))
 		note = content.get_text() if raw_text else format_text(content.get_text(), text_only)
-		notes.append((title, note))
+		notes.append((_title, note))
 
 	return ('All Notes', ''.join(n for _, n in notes)) if join_all else notes
 
