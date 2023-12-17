@@ -1,4 +1,4 @@
-import pytest
+import os
 import enexlib as nx
 
 def test_read_enex() -> None:
@@ -18,3 +18,14 @@ def test_format_text() -> None:
     test_input = '  &quot;Ben&nbsp;&&#160;Jerry&apos;s&quot;  '
     test_output = nx.format_text(test_input)
     assert test_output == '"Ben & Jerry\'s"'
+
+def test_export_to_markdown() -> None:
+    for filetype in ['enex']: #, 'xml']:
+        nx.export_to_markdown(f'Test.{filetype}')
+        _dir = os.path.join(os.getcwd(), 'exported-notes')
+        assert os.path.exists(_dir)
+        for file in os.listdir(_dir):
+            assert 'Enexlib' in file # title should become filename
+            with open(f'{_dir}/{file}', mode='r', encoding='utf-8') as _f:
+                content = _f.read() 
+                assert '<[ No Content ]>' not in content # content should save

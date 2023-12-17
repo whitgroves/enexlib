@@ -2,6 +2,7 @@
 .*/
 __*__/
 
-# build artifacts
+# artifacts
 dist/*
 *.egg-info/*
+exported-notes/*

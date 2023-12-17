@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "enexlib"
-version = "0.1.1"
+version = "0.1.2"
 description = "Convert Evernote export files to plaintext."
 keywords = ["evernote", "enex"]
 requires-python = ">=3"

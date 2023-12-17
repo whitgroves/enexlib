@@ -1,5 +1,6 @@
-from bs4 import BeautifulSoup
-from re import compile
+import os
+import re
+import bs4
 
 def read_enex(filename:str, text_only:bool=False, raw_text:bool=False, join_all:bool=False) -> list[tuple[str, str]]:
 	'''
@@ -16,14 +17,15 @@ def read_enex(filename:str, text_only:bool=False, raw_text:bool=False, join_all:
 	with open(filename, 'r', encoding='utf-8') as file:
 		raw = file.read()
 
-	soup = BeautifulSoup(raw, features='xml')
+	soup = bs4.BeautifulSoup(raw, features='xml')
 	titles = soup.find_all('title')
 	contents = soup.find_all('content')
 
 	notes = [] 
 	for title, content in zip(titles, contents):
-		_title = compile(r'<.*?title>').sub('', str(title))
-		note = content.get_text() if raw_text else format_text(content.get_text(), text_only)
+		_title = re.compile(r'<.*?title>').sub('', str(title))
+		_content = content.get_text()
+		note = _content if raw_text else format_text(_content, text_only)
 		notes.append((_title, note))
 
 	return ('All Notes', ''.join(n for _, n in notes)) if join_all else notes
@@ -41,7 +43,7 @@ def format_text(text:str, text_only:bool=False) -> str:
 		# convert divs (used for spaces) and list items
 		text = text.replace('</div><div>', newline_char)
 		text = text.replace('</li>', newline_char)
-		text = compile(r'<li.*?>').sub(listitem_char, text)
+		text = re.compile(r'<li.*?>').sub(listitem_char, text)
 		
 		# convert any special characters
 		text = text.replace('&quot;', '"')
@@ -59,11 +61,27 @@ def format_text(text:str, text_only:bool=False) -> str:
 		
 		# strip out any whitespaces or remaining unicode
 		if text_only:
-			text = compile(r'[\t\n\r\f\v]').sub('', text)
-			text = compile(r'u.{,4}').sub('', text)
+			text = re.compile(r'[\t\n\r\f\v]').sub('', text)
+			text = re.compile(r'u.{,4}').sub('', text)
 		
 		#remove all remaining special characters and tags
-		text = compile(r'&#\d*;?').sub(' ', str(text))
-		text = compile(r'<.*?>').sub(' ', text)
+		text = re.compile(r'&#\d*;?').sub(' ', str(text))
+		text = re.compile(r'<.*?>').sub(' ', text)
 	
 	return ' '.join(text.split()) # removes extra whitespaces
+
+def export_to_markdown(filename:str, join_all:bool=False) -> None:
+	'''
+	Reads the .enex file at `filename` and exports all notes to markdown files.
+	Args:
+		`filename`: The name of the .enex or .xml file to parse.
+		`kwargs`: Keyword arguments for the internal call to read_enex().
+	'''
+	_dir = os.path.split(os.path.abspath(filename))[0]
+	_dir = os.path.join(_dir, 'exported-notes')
+	if not os.path.exists(_dir): os.makedirs(_dir)
+	for title, content in read_enex(filename, raw_text=True, join_all=join_all):
+		with open(f'{_dir}/{title}.md', mode='w', encoding='utf-8') as file:
+			match = re.search(r'(?:<en-note>)([\s\S]*?)(?:</en-note>)', content)
+			content = match[0] if match else '<[ No Content ]>'
+			file.writelines(content)
