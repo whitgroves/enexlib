@@ -67,5 +67,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: Created by GitHub action (run-tests.yml).
-          PR_NAME: Merge ${{ github.ref_name }} -> main
-        run: gh pr edit ${{ github.ref_name }} -b '${{ env.PR_BODY }}' -t '${{ env.PR_NAME }}' && gh pr reopen ${{ github.ref_name }} || gh pr create -B main -H ${{ github.ref_name }} -t '${{ env.PR_NAME }}' -b '${{ env.PR_BODY }}'
+          PR_NAME: Merge ${{ github.ref_name }} -> master
+        run: gh pr edit ${{ github.ref_name }} -b '${{ env.PR_BODY }}' -t '${{ env.PR_NAME }}' && gh pr reopen ${{ github.ref_name }} || gh pr create -B master -H ${{ github.ref_name }} -t '${{ env.PR_NAME }}' -b '${{ env.PR_BODY }}'
