@@ -51,7 +51,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Pylint
-        run: pylint app/* tests/*
+        run: pylint enexlib/* test_enexlib.py
 
   pull-request:
     name: Create PR

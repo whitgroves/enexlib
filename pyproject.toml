@@ -1,3 +1,4 @@
+# build
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
@@ -5,7 +6,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "enexlib"
 version = "0.1.3"
-description = "Convert Evernote backup files (.enex) to plaintext."
+description = "Convert Evernote backup files to plaintext."
 keywords = ["evernote", "enex"]
 requires-python = ">=3.9"
 dependencies = [
@@ -17,3 +18,54 @@ readme = "README.md"
 
 [project.urls]
 "Source" = "https://github.com/whitgroves/enexlib"
+
+# test
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = 'INFO'
+
+# based on https://google.github.io/styleguide/pyguide.html#21-lint
+[tool.pylint.main]
+fail-under=9.9 # 1-2 trailing whitespaces can wait
+ignore-patterns = []
+jobs = 0 # use all available processors
+persistent = false
+
+[tool.pylint.basic]
+argument-rgx = "^[a-z][a-z0-9_]*$"
+attr-rgx = "^_{0,2}[a-z][a-z0-9_]*$"
+bad-names = []
+class-attribute-rgx = "^(_?[A-Z][A-Z0-9_]*|__[a-z0-9_]+__|_?[a-z][a-z0-9_]*)$"
+class-rgx = "^_?[A-Z][a-zA-Z0-9]*$"
+const-rgx = "^(_?[A-Z][A-Z0-9_]*|__[a-z0-9_]+__|_?[a-z][a-z0-9_]*)$"
+docstring-min-length = 12
+function-rgx = "^(?:(?P<exempt>setUp|tearDown|setUpModule|tearDownModule)|(?P<camel_case>_?[A-Z][a-zA-Z0-9]*)|(?P<snake_case>_?[a-z][a-z0-9_]*))$"
+good-names = ["i", "j", "k", "e", "main", "_"]
+inlinevar-rgx = "^[a-z][a-z0-9_]*$"
+method-rgx = "(?x)^(?:(?P<exempt>_[a-z0-9_]+__|runTest|setUp|tearDown|setUpTestCase|tearDownTestCase|setupSelf|tearDownClass|setUpClass|(test|assert)_*[A-Z0-9][a-zA-Z0-9_]*|next)|(?P<camel_case>_{0,2}[A-Z][a-zA-Z0-9_]*)|(?P<snake_case>_{0,2}[a-z][a-z0-9_]*))$"
+module-rgx = "^(_?[a-z][a-z0-9_]*|__init__)$"
+no-docstring-rgx = "(__.*__|main|test.*|.*test|.*Test)$"
+variable-rgx = "^[a-z][a-z0-9_]*$"
+
+[tool.pylint.classes]
+valid-classmethod-first-arg = ["cls", "class_"]
+
+[tool.pylint.format]
+ignore-long-lines = "(?x)(\n^\\s*(\\#\\ )?<?https?://\\S+>?$|\n^\\s*(from\\s+\\S+\\s+)?import\\s+.+$)"
+max-line-length = 80
+single-line-if-stmt = true
+
+[tool.pylint."messages control"]
+disable = ["missing-module-docstring"]
+
+[tool.pylint.miscellaneous]
+notes = ["TODO"]
+
+[tool.pylint.similarities]
+ignore-imports = false
+
+[tool.pylint.string]
+check-quote-consistency = true
+
+[tool.pylint.variables]
+dummy-variables-rgx = "^\\*{0,2}(_$|unused_|dummy_)"
